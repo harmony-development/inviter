@@ -8,7 +8,7 @@
         {{ if .GuildName }}
         <meta property="og:title" content="{{ .GuildName }}" />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="Come chat with your friends at {{ .GuildName }} using Harmony">
+        <meta property="og:description" content="Come chat with your friends at {{ .GuildName }} using Harmony. {{ .MemberCount }} members.">
         <meta property="og:image" content="/_media/{{ .AvatarHost }}/{{ .Avatar }}" />
         <meta name="theme-color" content="#19c4ae">
         {{ else }}
