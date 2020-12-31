@@ -65,18 +65,6 @@ main {
   margin-bottom: 4rem;
 }
 
-@media (max-width: 40rem) {
-  .message {
-    border-radius: 0;
-  }
-  footer ul {
-    text-align: right;
-  }
-  footer ul li:not(:last-of-type) {
-    margin-right: 0;
-  }
-}
-
 .message img {
   background: black;
   border-radius: 50%;
@@ -153,4 +141,16 @@ footer ul li {
 
 footer ul li:not(:last-of-type) {
   margin-right: 0.5rem;
+}
+
+@media (max-width: 40rem) {
+  .message {
+    border-radius: 0;
+  }
+  footer ul {
+    text-align: right;
+  }
+  footer ul li:not(:last-of-type) {
+    margin-right: 0;
+  }
 }
