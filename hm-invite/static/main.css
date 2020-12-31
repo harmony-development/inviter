@@ -4,13 +4,15 @@ html {
   font-size: 16px;
 }
 
-*, ::before, ::after {
-    box-sizing: border-box;
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 
 body {
   color: white;
-  background: url("/images/lillies.svg") no-repeat;
+  background: url("/static/images/lillies.svg") no-repeat;
   background-size: cover;
   background-position: 50%;
   display: flex;

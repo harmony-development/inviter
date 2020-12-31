@@ -4,9 +4,12 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+
+	chatv1 "github.com/harmony-development/inviter/gen/chat/v1"
 )
 
 var invitePageTemplate *template.Template
+var client *chatv1.ChatServiceClient
 
 // InviteData contains the data for a guild
 type InviteData struct {
@@ -27,8 +30,8 @@ func main() {
 
 	invitePageTemplate = parsed
 
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./hm-invite/static"))))
 	http.HandleFunc("/", handler)
-	http.Handle("/static", http.FileServer(http.Dir("./hm-invite/static")))
 
 	log.Fatal(http.ListenAndServe(":2290", nil))
 }
