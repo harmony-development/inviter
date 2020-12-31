@@ -18,6 +18,8 @@ var connMgr *Manager
 type InviteData struct {
 	GuildName   string
 	MemberCount int
+	Host        string
+	InviteID    string
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -31,8 +33,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	host := split[0]
 	invite := split[1]
-
-	println(host, invite)
 
 	conn, err := connMgr.GetOrConnect(host)
 	if err != nil {
@@ -54,7 +54,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := InviteData{GuildName: resp.Name}
+	data := InviteData{GuildName: resp.Name, MemberCount: int(resp.MemeberCount), Host: host, InviteID: invite}
 	invitePageTemplate.Execute(w, data)
 }
 
