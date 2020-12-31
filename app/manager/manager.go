@@ -72,7 +72,7 @@ func (im Manager) Get(host, invite string) (InviteData, error) {
 	}
 
 	client := chatv1.NewChatServiceClient(conn)
-	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*15))
+	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*5))
 	defer cancel()
 	data, err := client.PreviewGuild(ctx, &chatv1.PreviewGuildRequest{
 		InviteId: invite,
