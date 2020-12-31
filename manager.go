@@ -2,11 +2,13 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"log"
 	"time"
 
 	lru "github.com/hashicorp/golang-lru"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 type Manager struct {
@@ -27,7 +29,7 @@ func NewManager() (*Manager, error) {
 func (im Manager) Connect(host string) (*grpc.ClientConn, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	client, err := grpc.DialContext(ctx, host, grpc.WithInsecure())
+	client, err := grpc.DialContext(ctx, host, grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})))
 	if err != nil {
 		return nil, err
 	}
