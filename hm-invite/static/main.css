@@ -1,0 +1,140 @@
+html {
+  height: 100vh;
+  max-width: 100vw;
+  font-size: 16px;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+body {
+  color: white;
+  background: url("/images/lillies.svg") no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: white;
+}
+
+.message a {
+  color: #ee933d;
+}
+
+.message a:hover {
+  color: #ea5152;
+}
+
+main {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.message {
+  background-color: white;
+  color: black;
+  border-radius: 2.5rem;
+  padding: 2rem 3rem;
+  width: 36rem;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+@media (max-width: 40rem) {
+  .message {
+    border-radius: 0;
+  }
+}
+
+.message img {
+  background: black;
+  border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+}
+
+.message h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+a.button {
+  background: linear-gradient(#09cd95, #19c4ae);
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+
+a.button:not(:last-of-type) {
+  margin-bottom: 0.5rem;
+}
+
+a.button:hover {
+  background: #19c4ae;
+  color: white;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0 0;
+}
+
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  font-size: 3rem;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-brand img {
+  width: 6rem;
+  height: 6rem;
+  margin-right: 1rem;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  max-width: 80rem;
+  width: 100%;
+  margin: auto;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer ul li {
+  display: inline;
+}
+
+footer ul li:not(:last-of-type) {
+  margin-right: 0.5rem;
+}
