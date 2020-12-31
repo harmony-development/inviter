@@ -1,9 +1,14 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
+	"strings"
 	"text/template"
+	"time"
+
+	chatv1 "github.com/harmony-development/inviter/gen/chat/v1"
 )
 
 var invitePageTemplate *template.Template
@@ -16,7 +21,40 @@ type InviteData struct {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	data := InviteData{GuildName: "Hello"}
+	trimmed := strings.TrimPrefix(r.URL.Path, "/")
+	split := strings.Split(trimmed, "/")
+
+	if len(split) < 2 {
+		w.Write([]byte("invalid invite"))
+		return
+	}
+
+	host := split[0]
+	invite := split[1]
+
+	println(host, invite)
+
+	conn, err := connMgr.GetOrConnect(host)
+	if err != nil {
+		w.Write([]byte("unable to connect to server"))
+		log.Println(err)
+		return
+	}
+	c := chatv1.NewChatServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	resp, err := c.PreviewGuild(ctx, &chatv1.PreviewGuildRequest{
+		InviteId: invite,
+	})
+	if err != nil {
+		w.Write([]byte("unable to load invite"))
+		log.Println(err)
+		return
+	}
+
+	data := InviteData{GuildName: resp.Name}
 	invitePageTemplate.Execute(w, data)
 }
 
