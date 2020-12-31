@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Harmony</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/main.css" type="text/css" />
+    </head>
+    <body>
+        <nav>
+            <a href="/" class="nav-brand">
+                <img src="/static/img/harmony.png"/>
+                Harmony
+            </a>
+        </nav>
+
+        <main>
+            {{yield}}
+        </main>
+
+        <footer>
+            <p>Powered by <a href="https://github.com/harmony-development/legato">Legato</a></p>
+            <ul>
+                <li><a href="">Terms of service</a></li>
+                <li><a href="">License</a></li>
+            </ul>
+        </footer>
+    </body>
+</html>
