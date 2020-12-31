@@ -5,6 +5,19 @@
         <title>Harmony</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/static/main.css" type="text/css" />
+        {{ if .GuildName }}
+        <meta property="og:title" content="{{ .GuildName }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="Come chat with your friends at {{ .GuildName }} using Harmony. {{ .MemberCount }} members.">
+        <meta property="og:image" content="/_media/{{ .AvatarHost }}/{{ .Avatar }}" />
+        <meta name="theme-color" content="#19c4ae">
+        {{ else }}
+        <meta property="og:title" content="Harmony" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="The invite link service for Harmony.">
+        <meta property="og:image" content="/static/img/harmony.png" />
+        <meta name="theme-color" content="#19c4ae">
+        {{ end }}
     </head>
     <body>
         <nav>
