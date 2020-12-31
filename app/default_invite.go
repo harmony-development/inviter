@@ -3,10 +3,12 @@ package app
 import (
 	"net/http"
 
+	"github.com/harmony-development/inviter/app/manager"
 	"github.com/labstack/echo/v4"
 )
 
 type ErrorData struct {
+	manager.InviteData
 	ErrorMessage string
 }
 
