@@ -5,6 +5,9 @@ go 1.15
 require (
 	github.com/creasty/defaults v1.5.1
 	github.com/golang/protobuf v1.4.3
+	github.com/gorilla/websocket v1.4.2
+	github.com/harmony-development/hrpc v0.0.0-20210216160246-be5c22d1e022
+	github.com/harmony-development/legato v0.0.0-20210121011755-599a0fd86c25
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/hashicorp/hcl/v2 v2.8.1
 	github.com/labstack/echo/v4 v4.1.17
@@ -17,5 +20,5 @@ require (
 	golang.org/x/text v0.3.4 // indirect
 	google.golang.org/genproto v0.0.0-20201214200347-8c77b98c765d // indirect
 	google.golang.org/grpc v1.34.0
-	google.golang.org/protobuf v1.25.0
+	google.golang.org/protobuf v1.25.1-0.20200805231151-a709e31e5d12
 )
