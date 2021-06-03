@@ -1,14 +1,16 @@
 package v1
 
-import "net/http"
-import "google.golang.org/protobuf/proto"
-import "io/ioutil"
-import "fmt"
-import "github.com/gorilla/websocket"
-import "net/url"
-import "bytes"
+import (
+	"bytes"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 
-import "github.com/golang/protobuf/ptypes/empty"
+	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/gorilla/websocket"
+	"google.golang.org/protobuf/proto"
+)
 
 type ChatServiceClient struct {
 	client    *http.Client
@@ -569,12 +571,12 @@ func (client *ChatServiceClient) UpdateChannelOrder(r *UpdateChannelOrderRequest
 	return output, nil
 }
 
-func (client *ChatServiceClient) UpdateMessage(r *UpdateMessageRequest) (*empty.Empty, error) {
+func (client *ChatServiceClient) UpdateMessageText(r *UpdateMessageTextRequest) (*empty.Empty, error) {
 	input, err := proto.Marshal(r)
 	if err != nil {
 		return nil, fmt.Errorf("could not martial request: %w", err)
 	}
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s://%s/protocol.chat.v1.ChatService/UpdateMessage", client.HTTPProto, client.serverURL), bytes.NewReader(input))
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s://%s/protocol.chat.v1.ChatService/UpdateMessageText", client.HTTPProto, client.serverURL), bytes.NewReader(input))
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
@@ -1290,6 +1292,8 @@ func (client *ChatServiceClient) StreamEvents() (in chan<- *StreamEventsRequest,
 			select {
 			case msg, ok := <-msgs:
 				if !ok {
+					close(inC)
+					close(outC)
 					return
 				}
 
@@ -1302,6 +1306,7 @@ func (client *ChatServiceClient) StreamEvents() (in chan<- *StreamEventsRequest,
 				outC <- thing
 			case send, ok := <-inC:
 				if !ok {
+					close(outC)
 					return
 				}
 
@@ -1344,6 +1349,36 @@ func (client *ChatServiceClient) GetUser(r *GetUserRequest) (*GetUserResponse, e
 		return nil, fmt.Errorf("error reading response: %w", err)
 	}
 	output := &GetUserResponse{}
+	err = proto.Unmarshal(data, output)
+	if err != nil {
+		return nil, fmt.Errorf("error unmarshalling response: %w", err)
+	}
+	return output, nil
+}
+
+func (client *ChatServiceClient) GetUserBulk(r *GetUserBulkRequest) (*GetUserBulkResponse, error) {
+	input, err := proto.Marshal(r)
+	if err != nil {
+		return nil, fmt.Errorf("could not martial request: %w", err)
+	}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s://%s/protocol.chat.v1.ChatService/GetUserBulk", client.HTTPProto, client.serverURL), bytes.NewReader(input))
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	for k, v := range client.Header {
+		req.Header[k] = v
+	}
+	req.Header.Add("content-type", "application/hrpc")
+	resp, err := client.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error posting request: %w", err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response: %w", err)
+	}
+	output := &GetUserBulkResponse{}
 	err = proto.Unmarshal(data, output)
 	if err != nil {
 		return nil, fmt.Errorf("error unmarshalling response: %w", err)
@@ -1463,7 +1498,98 @@ func (client *ChatServiceClient) PreviewGuild(r *PreviewGuildRequest) (*PreviewG
 	if err != nil {
 		return nil, fmt.Errorf("error reading response: %w", err)
 	}
+	fmt.Printf(string(data))
 	output := &PreviewGuildResponse{}
+	err = proto.Unmarshal(data, output)
+	if err != nil {
+		return nil, fmt.Errorf("error unmarshalling response: %w", err)
+	}
+	return output, nil
+}
+
+func (client *ChatServiceClient) BanUser(r *BanUserRequest) (*empty.Empty, error) {
+	input, err := proto.Marshal(r)
+	if err != nil {
+		return nil, fmt.Errorf("could not martial request: %w", err)
+	}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s://%s/protocol.chat.v1.ChatService/BanUser", client.HTTPProto, client.serverURL), bytes.NewReader(input))
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	for k, v := range client.Header {
+		req.Header[k] = v
+	}
+	req.Header.Add("content-type", "application/hrpc")
+	resp, err := client.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error posting request: %w", err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response: %w", err)
+	}
+	output := &empty.Empty{}
+	err = proto.Unmarshal(data, output)
+	if err != nil {
+		return nil, fmt.Errorf("error unmarshalling response: %w", err)
+	}
+	return output, nil
+}
+
+func (client *ChatServiceClient) KickUser(r *KickUserRequest) (*empty.Empty, error) {
+	input, err := proto.Marshal(r)
+	if err != nil {
+		return nil, fmt.Errorf("could not martial request: %w", err)
+	}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s://%s/protocol.chat.v1.ChatService/KickUser", client.HTTPProto, client.serverURL), bytes.NewReader(input))
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	for k, v := range client.Header {
+		req.Header[k] = v
+	}
+	req.Header.Add("content-type", "application/hrpc")
+	resp, err := client.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error posting request: %w", err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response: %w", err)
+	}
+	output := &empty.Empty{}
+	err = proto.Unmarshal(data, output)
+	if err != nil {
+		return nil, fmt.Errorf("error unmarshalling response: %w", err)
+	}
+	return output, nil
+}
+
+func (client *ChatServiceClient) UnbanUser(r *UnbanUserRequest) (*empty.Empty, error) {
+	input, err := proto.Marshal(r)
+	if err != nil {
+		return nil, fmt.Errorf("could not martial request: %w", err)
+	}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s://%s/protocol.chat.v1.ChatService/UnbanUser", client.HTTPProto, client.serverURL), bytes.NewReader(input))
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	for k, v := range client.Header {
+		req.Header[k] = v
+	}
+	req.Header.Add("content-type", "application/hrpc")
+	resp, err := client.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error posting request: %w", err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response: %w", err)
+	}
+	output := &empty.Empty{}
 	err = proto.Unmarshal(data, output)
 	if err != nil {
 		return nil, fmt.Errorf("error unmarshalling response: %w", err)

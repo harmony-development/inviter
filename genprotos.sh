@@ -16,3 +16,5 @@ done
 rsync -a -v gen/github.com/harmony-development/legato/gen/ ./gen
 
 go fmt ./gen/./...
+
+cd gen; grep -rl legato | xargs sed -i 's/legato/inviter/g'

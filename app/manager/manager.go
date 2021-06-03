@@ -63,7 +63,7 @@ func (im Manager) Get(host, invite string) (InviteData, error) {
 
 	return InviteData{
 		GuildName:   data.Name,
-		MemberCount: int(data.MemeberCount),
+		MemberCount: int(data.MemberCount),
 		Avatar:      avatarID,
 		AvatarHost:  avatarHost,
 		Host:        host,

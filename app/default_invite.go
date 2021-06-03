@@ -10,6 +10,7 @@ import (
 type ErrorData struct {
 	manager.InviteData
 	ErrorMessage string
+	ErrorDetails string
 }
 
 func (s *server) defaultInvite(c echo.Context) error {
