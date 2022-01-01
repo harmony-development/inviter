@@ -32,7 +32,7 @@ func Load() (*Config, error) {
 			log.Fatal(err)
 		}
 
-		log.Println("A default configuration has been written to 'config.hcl'. Edit it as appropriate and then restart Legato.")
+		log.Println("A default configuration has been written to 'config.hcl'. Edit it as appropriate and then restart inviter.")
 		os.Exit(0)
 	}
 
