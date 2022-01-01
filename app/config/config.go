@@ -14,7 +14,7 @@ import (
 
 type Config struct {
 	Server struct {
-		DefaultServer string `hcl:"DefaultServer,optional" default:"chat.harmonyapp.io"`
+		DefaultServer string `hcl:"DefaultServer,optional" default:"https://chat.harmonyapp.io"`
 	} `hcl:"Server,block"`
 }
 

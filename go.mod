@@ -9,6 +9,7 @@ require (
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/gorilla/websocket v1.4.2
 	github.com/gosimple/slug v1.12.0 // indirect
+	github.com/harmony-development/shibshib v0.0.0-20220101224523-c98059d09cfa // indirect
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/hashicorp/hcl/v2 v2.11.1
 	github.com/jinzhu/gorm v1.9.16 // indirect

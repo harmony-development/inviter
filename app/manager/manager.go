@@ -3,7 +3,7 @@ package manager
 import (
 	"strings"
 
-	chatv1 "github.com/harmony-development/inviter/gen/chat/v1"
+	chatv1 "github.com/harmony-development/shibshib/gen/chat/v1"
 	lru "github.com/hashicorp/golang-lru"
 )
 
@@ -37,7 +37,7 @@ type InviteData struct {
 
 // Get gets invite data from a host and invite name
 func (im Manager) Get(host, invite string) (InviteData, error) {
-	client := chatv1.NewChatServiceClient(host)
+	client := chatv1.HTTPChatServiceClient{BaseURL: host}
 	data, err := client.PreviewGuild(&chatv1.PreviewGuildRequest{
 		InviteId: invite,
 	})
@@ -49,8 +49,8 @@ func (im Manager) Get(host, invite string) (InviteData, error) {
 	avatarHost := ""
 	avatarID := ""
 
-	if strings.HasPrefix(data.Avatar, "hmc://") {
-		trimmed := strings.TrimPrefix(data.Avatar, "hmc://")
+	if strings.HasPrefix(data.GetPicture(), "hmc://") {
+		trimmed := strings.TrimPrefix(data.GetPicture(), "hmc://")
 		split := strings.Split(trimmed, "/")
 		if len(split) == 2 {
 			avatarHost = split[0]
@@ -58,7 +58,7 @@ func (im Manager) Get(host, invite string) (InviteData, error) {
 		}
 	} else {
 		avatarHost = host
-		avatarID = data.Avatar
+		avatarID = data.GetPicture()
 	}
 
 	return InviteData{
