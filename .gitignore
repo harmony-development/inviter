@@ -1,2 +1,4 @@
 inviter
 config.hcl
+.envrc
+.direnv
