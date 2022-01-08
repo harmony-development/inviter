@@ -1,3 +1,4 @@
+{{ define "base" }}
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,15 +29,16 @@
         </nav>
 
         <main>
-            {{yield}}
+            {{ template "main" . }}
         </main>
 
         <footer>
-            <p>Powered by <a href="https://github.com/harmony-development/legato">Legato</a></p>
-            <ul>
+            <p>Powered by <a href="https://github.com/harmony-development/inviter">Inviter</a></p>
+            <!-- <ul>
                 <li><a href="">Terms of service</a></li>
                 <li><a href="">License</a></li>
-            </ul>
+            </ul> -->
         </footer>
     </body>
 </html>
+{{ end }}

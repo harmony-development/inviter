@@ -1,3 +1,6 @@
+{{ template "base" . }}
+
+{{ define "main" }}
 <main>
     <div class="message">
         <img src="/_media/{{ .AvatarHost }}/{{ .Avatar }}" />
@@ -7,3 +10,4 @@
         <a href="http://tempest.bluskript.vercel.app/join/{{.Host}}/{{.InviteID}}" class="button">View on the Web</a>
     </div>
 </main>
+{{ end }}

@@ -1,3 +1,6 @@
+{{ template "base" . }}
+
+{{ define "main" }}
 <main>
 	<div class="message">
 		<img src="/static/img/failed.svg" />
@@ -6,3 +9,4 @@
 		<p>{{.ErrorDetails}}</p>
 	</div>
 </main>
+{{ end }}
